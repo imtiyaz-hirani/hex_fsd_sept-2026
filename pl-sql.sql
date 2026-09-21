@@ -84,7 +84,7 @@ BEGIN
         SET message_text = 'Please provide branch value';
     END if; 
     
-    IF NOT EXISTS (select 1 from employee where branch = p_branch) THEN
+    IF NOT EXISTS (select 1 from employee where p_branch IN ('CHENNAI','MUMBAI','NEW YORK')) THEN
 		signal sqlstate "45000"
         SET message_text = 'Please provide valid branch value';
     END IF;
@@ -98,6 +98,37 @@ drop procedure update_emp_branch;
 CALL update_emp_branch(8,'NEW YORK');
 CALL update_emp_branch(8,null);
 CALL update_emp_branch(10,'LONDON');
+
+-- CAP to count number of employees in a given department, return the count. 
+# NOTE: procedures cannot return any value 
+
+DELIMITER $$
+create procedure cnt_emp_by_dept(IN p_dept varchar(255) , OUT p_cnt INT)
+BEGIN
+	select count(id) into p_cnt
+    from employee
+    where department = p_dept ;
+END
+$$
+
+CALL cnt_emp_by_dept('ADMIN', @count_num); -- session variable. 
+select @count_num;
+
+/*
+1. simple proc structure 
+2. IN param
+3. OUT param 
+4. IF for validation 
+5. exception state 45000 
+*/
+
+
+
+
+
+
+
+
 
 
 
