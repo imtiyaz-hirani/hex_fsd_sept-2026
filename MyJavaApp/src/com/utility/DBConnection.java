@@ -11,7 +11,7 @@ public class DBConnection {
     private String dbName = "fsd_hex_sept_2026";
     private Connection conn;
 
-    public void dbConnect(){
+    public Connection dbConnect(){
         // Step 1: Load the driver
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,6 +27,7 @@ public class DBConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return conn;
     }
 
     public void dbClose(){
