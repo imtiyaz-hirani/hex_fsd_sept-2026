@@ -35,7 +35,36 @@ CALL all_emp;
 
 -- CAP to fetch employee names based on given department 
 DELIMITER $$
-create procedure emp_by_branch(IN p_dept varchar(255))
+create procedure emp_by_department(IN p_dept varchar(255))
+BEGIN
+	IF p_dept = '' then
+		-- throw exception 
+        signal sqlstate "45000" # we r telling the db, that i signal you to throw a exception/error here 
+        SET message_text = 'department should not be empty';
+    end if;
+    
+    IF NOT EXISTS (select 1 from employee where department = p_dept)  THEN
+		signal sqlstate "45000"
+        SET message_text = 'Invalid value of department given';
+    END IF;
+    
+	-- this runs only if validation succeeds 
+	select *
+	from employee
+	where department = p_dept;
+END
+$$
+
+drop procedure emp_by_department;
+
+CALL emp_by_department('FINANCE'); # proc called with a parameter  -- p_dept = FINANCE
+CALL emp_by_department('ADMIN'); # p_dept = ADMIN
+CALL emp_by_department('HR'); # p_dept = HR
+CALL emp_by_department('');
+
+-- CAP to fetch employee names based on given department 
+DELIMITER $$
+create procedure emp_name_by_department(IN p_dept varchar(255))
 BEGIN
 	IF p_dept = '' then
 		-- throw exception 
@@ -54,14 +83,6 @@ BEGIN
 	where department = p_dept;
 END
 $$
-
-drop procedure emp_by_branch;
-
-CALL emp_by_branch('FINANCE'); # proc called with a parameter  -- p_dept = FINANCE
-CALL emp_by_branch('ADMIN'); # p_dept = ADMIN
-CALL emp_by_branch('HR'); # p_dept = HR
-CALL emp_by_branch('');
-
 
 select 1 from employee where department = 'HR';
  
@@ -120,8 +141,14 @@ select @count_num;
 3. OUT param 
 4. IF for validation 
 5. exception state 45000 
+6. INOUT parameter 
 */
 
+/*
+Views 
+Triggers 
+Cursor** 
+*/
 
 
 
