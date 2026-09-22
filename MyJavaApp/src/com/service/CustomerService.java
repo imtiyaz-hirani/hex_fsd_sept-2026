@@ -20,4 +20,8 @@ public class CustomerService {
     public List<String> getEmployeeNamesByDepartment(String dept) {
        return customerDao.getEmployeeNamesByDepartment(dept);
     }
+
+    public int getEmpCountByDept(String dept) throws SQLException {
+        return customerDao.getEmpCountByDept(dept);
+    }
 }

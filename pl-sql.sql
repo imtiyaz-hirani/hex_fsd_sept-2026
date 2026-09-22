@@ -150,17 +150,31 @@ Triggers
 Cursor** 
 */
 
+select * from employee; 
 
+-- views (hide attributes / columns & rows/records)
 
+create view v_emp AS 
+select id,name,branch,department
+from employee
+where department NOT IN ('ADMIN')
+WITH CHECK OPTION;
 
+show tables; 
 
+drop view v_emp;
 
+update v_emp_dev
+SET department = 'FINANCE'
+where id = 7;
 
-
-
-
-
-
+create view v_emp_dev AS 
+select * 
+from employee 
+where department = 'DEV'
+WITH CHECK OPTION;
+ 
+drop view v_emp_dev;
 
 
 

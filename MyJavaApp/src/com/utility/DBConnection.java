@@ -15,7 +15,7 @@ public class DBConnection {
         // Step 1: Load the driver
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("driver loaded...");
+            // System.out.println("driver loaded...");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -23,7 +23,7 @@ public class DBConnection {
         // Step 2: Establish the connection
         try {
             conn = DriverManager.getConnection(url + dbName,userDb,password);
-            System.out.println("connection established at memory loc: " + conn);
+            // System.out.println("connection established at memory loc: " + conn);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -33,7 +33,7 @@ public class DBConnection {
     public void dbClose(){
         try {
             conn.close();
-            System.out.println("connection closed at loc: " + conn);
+            // System.out.println("connection closed at loc: " + conn);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

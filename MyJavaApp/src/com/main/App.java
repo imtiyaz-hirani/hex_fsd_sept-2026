@@ -14,10 +14,13 @@ public class App {
         list.forEach(System.out :: println);
 
         System.out.println("------------Emp by Dept----------");
-        String dept = "IT";
+        String dept = "DEV";
         try {
             list = customerService.getEmployeeByDepartment(dept);
             list.forEach(System.out :: println);
+            System.out.println("------Number of Employee by Dept-----");
+            int count = customerService.getEmpCountByDept(dept);
+            System.out.println("Number of Emp: " + count);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
