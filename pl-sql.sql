@@ -177,6 +177,62 @@ WITH CHECK OPTION;
 drop view v_emp_dev;
 
 
+insert into orders(product_id, order_qty) values (1,2)
+
+--  Trigger Case study : Ecom proj 
+
+create table product(id INT primary key auto_increment , 
+title varchar(255),
+price double,
+stock_qty int); 
+
+create table orders (id INT primary key auto_increment , 
+product_id int, 
+order_qty int);
+
+insert into product values (1, 'Some headphones', 540, 3);
+insert into product values (2, 'Some laptop', 45540, 1);
+insert into orders values (1, 1 , 2);
+insert into orders values (1, 1 , 4);
+insert into orders(product_id,order_qty) values ( 2 , 2);
+insert into orders(product_id,order_qty) values ( 2 , 1);
+
+-- trigger 1: Check stock qty before insert on orders table 
+DELIMITER $$
+create trigger trg_check_stock_qty
+BEFORE INSERT ON orders
+FOR EACH ROW
+BEGIN
+declare v_stock_qty INT;
+
+	if NOT EXISTS (select 1 from product where id=NEW.product_id) THEN
+		signal sqlstate "45000"
+        SET message_text = "Product id invalid";
+    END IF; 
+    
+	select stock_qty into v_stock_qty
+    from product 
+    where id = NEW.product_id;
+    
+    if v_stock_qty < NEW.order_qty THEN
+		signal sqlstate "45000"
+        SET message_text = "Stock not available";
+    END if;
+END
+$$
+drop trigger trg_check_stock_qty;
+-- trigger for updating product available stock_qty
+DELIMITER $$
+create trigger trg_update_product_stock_qty 
+AFTER INSERT on orders
+FOR EACH ROW
+BEGIN
+	update product
+    set stock_qty = stock_qty - NEW.order_qty
+    where id = NEW.product_id;
+    
+END
+$$
 
 
 
