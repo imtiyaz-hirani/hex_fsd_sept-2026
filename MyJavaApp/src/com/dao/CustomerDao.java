@@ -42,4 +42,39 @@ public class CustomerDao {
         dbConnection.dbClose();
        return list;
     }
+
+    public List<Employee> getEmployeeByDepartment(String dept) throws SQLException {
+        Connection conn = dbConnection.dbConnect();
+        String sql = "{CALL emp_by_department(?)}";
+        List<Employee> list = new ArrayList<>();
+
+            CallableStatement callableStatement = conn.prepareCall(sql);
+            callableStatement.setString(1, dept);
+
+            ResultSet rst = callableStatement.executeQuery();
+            while(rst.next()){
+                // as long as the rows exists , we will read them in objects
+                // and save in list , after that we exit the while loop
+                Employee employee = new Employee(
+                        rst.getInt("id"),
+                        rst.getString("name"),
+                        rst.getString("branch"),
+                        rst.getString("city"),
+                        rst.getString("department")
+                );
+                list.add(employee);
+            }
+
+        dbConnection.dbClose();
+        return list;
+    }
+
+    public List<String> getEmployeeNamesByDepartment(String dept) {
+        Connection conn = dbConnection.dbConnect();
+        // call new proc from here
+
+
+        dbConnection.dbClose();
+        return null;
+    }
 }
