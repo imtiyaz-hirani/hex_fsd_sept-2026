@@ -12,20 +12,21 @@ public class Employee {
     private String city;
     private Department department;
     private LocalDate joiningDate;
+    private double salary;
 
     // constructors (default , all-args)
 
     public Employee() {
     }
 
-    public Employee(int id, String name, Branch branch, String city, Department department,
-                    LocalDate joiningDate) {
+    public Employee(int id, String name, Branch branch, String city, Department department, LocalDate joiningDate, double salary) {
         this.id = id;
         this.name = name;
         this.branch = branch;
         this.city = city;
         this.department = department;
         this.joiningDate = joiningDate;
+        this.salary = salary;
     }
 
     // setters and getters
@@ -78,6 +79,14 @@ public class Employee {
         this.joiningDate = joiningDate;
     }
 
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
     // toString
 
 
@@ -90,6 +99,7 @@ public class Employee {
                 ", city='" + city + '\'' +
                 ", department=" + department +
                 ", joiningDate=" + joiningDate +
+                ", salary=" + salary +
                 '}';
     }
 }
