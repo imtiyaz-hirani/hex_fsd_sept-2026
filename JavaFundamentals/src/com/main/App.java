@@ -17,10 +17,10 @@ public class App {
     public static void main(String[] args) {
         EmployeeService employeeService = new EmployeeService();
 
-        List<Employee> list =  employeeService.getAllEmployees();
- /*
-        list.forEach(System.out :: println);
+        List<Employee> list = employeeService.getAllEmployees();
 
+        list.forEach(System.out::println);
+/*
         System.out.println("--Sort Employee by Salary---");
         List<Employee> listSortedBySalaryAsc =  employeeService.sortEmployeeBySalary(list, SortDirection.DESC);
         listSortedBySalaryAsc.forEach(System.out :: println);
@@ -39,7 +39,7 @@ public class App {
 
         List<EmployeeRespDto> listInfo = employeeService.getEmployeeInfo(list);
         listInfo.forEach(System.out :: println);
-*/
+
          // Count number of employees for each department
         List<EmpDeptStatDto> listDto = employeeService.getEmpCountForEachDepartment(list);
          listDto.forEach(System.out :: println);
@@ -49,6 +49,7 @@ public class App {
             listBranchStatDto.forEach(System.out :: println);
         double total = employeeService.computeTotalSalary(listBranchStatDto);
         System.out.println("Total Salary " + total);
-        }
 
+*/
+    }
 }

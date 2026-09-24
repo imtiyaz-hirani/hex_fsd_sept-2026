@@ -10,6 +10,7 @@ import com.enums.SortDirection;
 import com.mapper.EmployeeMapper;
 import com.model.Employee;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,14 +20,16 @@ public class EmployeeService {
     private EmployeeDao employeeDao = new EmployeeDao();
 
     public List<Employee> getAllEmployees() {
-        return employeeDao.getALlEmployees();
+        List<Employee> list = employeeDao.getALlEmployees(); //unsorted list
+        Collections.sort(list); //sorting with default sort - check model class for logic of sort
+        return list;
 
     }
 
     public List<Employee> sortEmployeeBySalary(List<Employee> list, SortDirection direction) {
 
       if(direction.equals(SortDirection.ASC))
-          list.sort((e1, e2) -> (int) (e1.getSalary() - e2.getSalary())); //[80,50]
+          list.sort((e1, e2) -> (int) (e1.getSalary() - e2.getSalary())); //[80,50] //Comparator
        else
           list.sort((e1,e2)-> (int)(e2.getSalary() - e1.getSalary()));
 
