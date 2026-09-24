@@ -1,0 +1,47 @@
+package com.main;
+
+import com.dto.EmpDeptStatDto;
+import com.dto.EmployeeRespDto;
+import com.enums.Branch;
+import com.enums.Department;
+import com.enums.SortDirection;
+import com.model.Employee;
+import com.service.EmployeeService;
+
+import java.util.List;
+import java.util.Map;
+
+public class App {
+
+    public static void main(String[] args) {
+        EmployeeService employeeService = new EmployeeService();
+
+        List<Employee> list =  employeeService.getAllEmployees();
+ /*
+        list.forEach(System.out :: println);
+
+        System.out.println("--Sort Employee by Salary---");
+        List<Employee> listSortedBySalaryAsc =  employeeService.sortEmployeeBySalary(list, SortDirection.DESC);
+        listSortedBySalaryAsc.forEach(System.out :: println);
+
+        System.out.println("------Filter by Dept-------");
+        List<Employee> filteredListByDept =  employeeService.filterEmployeeByDepartment(list, Department.FINANCE);
+        filteredListByDept.forEach(System.out :: println);
+
+        System.out.println("------Filter by Branch-------");
+        List<Employee> filteredListByBranch =  employeeService.filterEmployeeByBranch(list, Branch.CHENNAI);
+        filteredListByBranch.forEach(System.out :: println);
+
+        System.out.println("------Display all employee names------");
+        List<String>  listNames =  employeeService.getEmployeeNames(list);
+        listNames.forEach(System.out :: println);
+
+        List<EmployeeRespDto> listInfo = employeeService.getEmployeeInfo(list);
+        listInfo.forEach(System.out :: println);
+*/
+         // Count number of employees for each department
+        Map<Department, Long> map = employeeService.getEmpCountForEachDepartment(list);
+        System.out.println(map);
+
+    }
+}
