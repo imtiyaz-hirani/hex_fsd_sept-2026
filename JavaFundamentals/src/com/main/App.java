@@ -40,8 +40,8 @@ public class App {
         listInfo.forEach(System.out :: println);
 */
          // Count number of employees for each department
-        Map<Department, Long> map = employeeService.getEmpCountForEachDepartment(list);
-        System.out.println(map);
+        List<EmpDeptStatDto> listDto = employeeService.getEmpCountForEachDepartment(list);
+         listDto.forEach(System.out :: println);
 
     }
 }

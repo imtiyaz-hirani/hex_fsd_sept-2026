@@ -64,16 +64,16 @@ public class EmployeeService {
 
     }
 
-    public Map<Department, Long> getEmpCountForEachDepartment(List<Employee> list) {
+    public List<EmpDeptStatDto> getEmpCountForEachDepartment(List<Employee> list) {
 
-         Map<Department, Long> map
-                =  list
+               return list
                     .stream()
                     .collect(
                             Collectors.groupingBy(Employee :: getDepartment,
-                                                  Collectors.counting()));
-
-         return map;
-
+                                                  Collectors.counting()))
+                       .entrySet()
+                       .stream()
+                       .map(entry-> new EmpDeptStatDto(entry.getKey(), entry.getValue()))
+                       .toList();
     }
 }
