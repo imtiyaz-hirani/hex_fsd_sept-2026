@@ -3,6 +3,7 @@ package com.service;
 import com.dao.EmployeeDao;
 import com.dto.EmpDeptStatDto;
 import com.dto.EmployeeRespDto;
+import com.dto.EmployeeSalaryStatDto;
 import com.enums.Branch;
 import com.enums.Department;
 import com.enums.SortDirection;
@@ -70,10 +71,31 @@ public class EmployeeService {
                     .stream()
                     .collect(
                             Collectors.groupingBy(Employee :: getDepartment,
-                                                  Collectors.counting()))
+                                                  Collectors .counting()))
                        .entrySet()
                        .stream()
                        .map(entry-> new EmpDeptStatDto(entry.getKey(), entry.getValue()))
                        .toList();
+    }
+
+    public List<EmployeeSalaryStatDto> getSalaryOfEachEmpByBranch(List<Employee> list) {
+        return list
+                .stream()
+                .collect(Collectors.groupingBy(
+                        Employee :: getBranch,
+                        Collectors.summingDouble(Employee :: getSalary)
+                ))
+                .entrySet()
+                .stream()
+                .map(entry -> new EmployeeSalaryStatDto(entry.getKey(), entry.getValue()))
+                .toList();
+    }
+
+    public double computeTotalSalary(List<EmployeeSalaryStatDto> listBranchStatDto) {
+        return ((Double) listBranchStatDto
+                .stream()
+                .mapToDouble(EmployeeSalaryStatDto::salary)
+                .sum());
+
     }
 }
