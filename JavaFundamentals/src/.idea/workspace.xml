@@ -4,43 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3a8ea1b-ac03-4087-b4eb-b783402e9af2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../JavaApp/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../JavaFundamentals.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/dao/EmployeeDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/dto/EmpDeptStatDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/dto/EmployeeRespDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/enums/Branch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/enums/Department.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/enums/SortDirection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/main/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/mapper/EmployeeMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/model/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com/service/EmployeeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/MyJavaApp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/lib/mysql-connector-j-9.1.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/src/com/dao/CustomerDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/src/com/main/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/src/com/main/CollectionsApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/src/com/model/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/src/com/service/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../MyJavaApp/src/com/utility/DBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../ecom_sample.mwb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pl-sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../pl-sql.sql" afterDir="false" />
-    </list>
+    <list default="true" id="a3a8ea1b-ac03-4087-b4eb-b783402e9af2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +38,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/hex_fsd_sept_2026/JavaFundamentals/src"
