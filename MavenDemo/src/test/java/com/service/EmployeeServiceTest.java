@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dto.EmployeeRespDto;
 import com.enums.Branch;
 import com.enums.Department;
 import com.enums.SortDirection;
@@ -27,7 +28,9 @@ public class EmployeeServiceTest {
     private Employee employee5;
     private Employee employee6;
     private Employee employee7;
-
+    private EmployeeRespDto employeeRespDto1;
+    private EmployeeRespDto employeeRespDto2;
+    private EmployeeRespDto employeeRespDto3;
     @BeforeEach
     public void init(){
         employeeService = new EmployeeService();
@@ -39,6 +42,10 @@ public class EmployeeServiceTest {
                employee6 =  new Employee(7, "Vikram Singh", Branch.MUMBAI, "Mumbai", Department.ADMIN, LocalDate.of(2017, 9, 14), 58000.0);
                employee7 =  new Employee(1, "Aarav Sharma", Branch.MUMBAI, "Mumbai", Department.DEV, LocalDate.of(2021, 3, 12), 85000.0);
         list = Arrays.asList(employee1,employee2,employee3,employee4,employee5,employee6,employee7);
+
+        employeeRespDto1 = new EmployeeRespDto(2,"Priya Patel",Department.ADMIN, LocalDate.of(2019, 7, 1));
+        employeeRespDto2 = new EmployeeRespDto(3, "John Doe" ,  Department.FINANCE, LocalDate.of(2022, 1, 15));
+        employeeRespDto3 = new EmployeeRespDto(4, "Neha Gupta" , Department.DEV, LocalDate.of(2020, 11, 5));
     }
 
     @Test
@@ -54,6 +61,15 @@ public class EmployeeServiceTest {
         assertEquals(expectedList.reversed() , employeeService.sortEmployeeBySalary(list , SortDirection.DESC));
     }
 
+    @Test
+    public void getEmployeeInfoTest(){
+        assertThrows(InvalidListException.class, ()-> employeeService.getEmployeeInfo(null));
+        assertThrows(InvalidListException.class, ()-> employeeService.getEmployeeInfo(List.of()));
+
+        assertEquals( List.of(employeeRespDto1,employeeRespDto2, employeeRespDto3),
+                employeeService.getEmployeeInfo(List.of(employee1,employee2,employee3)));
+
+    }
     @AfterEach
     public void destroy(){
         employeeService = null;
@@ -65,5 +81,8 @@ public class EmployeeServiceTest {
         employee6 = null;
         employee7 = null;
         list = null;
+        employeeRespDto1 = null;
+        employeeRespDto2 = null;
+        employeeRespDto3 = null;
     }
 }
