@@ -19,6 +19,6 @@ public class AppV4 {
                         context.getBean(MyDao.class),
                         context.getBean(TestUtility.class),
                         context.getBean(TestMapper.class));
-
+        myServiceV4.getTime();
     }
 }
