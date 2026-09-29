@@ -5,18 +5,20 @@ use fsd_hex_sept_2026;
 create table employee(
 id INT primary key auto_increment, 
 name varchar(255) NOT NULL,
-branch ENUM('CHENNAI', 'MUMBAI', 'NEW YORK'),
+branch ENUM('CHENNAI', 'MUMBAI', 'NEW_YORK'),
 city varchar(255),
-department ENUM('ADMIN', 'DEV', 'FINANCE')
+department ENUM('ADMIN', 'DEV', 'FINANCE'),
+joining_date Date,
+salary double
 );
 
 desc employee;
 
 -- insert 
-insert into employee(name,branch,city,department) values 
-('harry potter', 'MUMBAI', 'london', 'DEV'),
-('ronald weasley', 'MUMBAI', 'london', 'ADMIN'),
-('hermione granger', 'CHENNAI', 'surrey', 'FINANCE');
+insert into employee(name,branch,city,department,joining_date,salary) values 
+('harry potter', 'MUMBAI', 'london', 'DEV',now(), 67000),
+('ronald weasley', 'MUMBAI', 'london', 'ADMIN',now(), 56000),
+('hermione granger', 'CHENNAI', 'surrey', 'FINANCE',now(), 167000);
 
 -- modify attribute 
 alter table employee 
@@ -233,6 +235,38 @@ BEGIN
     
 END
 $$
+
+
+-- Group By 
+-- Display number of Employee in each department / branch 
+
+select department , count(id) as no_of_emp 
+from employee
+group by department;
+
+/*
+department=DEV
+|  1 | harry potter     | MUMBAI  | london | DEV        | 2026-09-24   |  67000 |
+
+department=ADMIN
+|  2 | ronald weasley   | MUMBAI  | london | ADMIN      | 2026-09-24   |  56000 |
+
+department=FINANCE
+|  3 | hermione granger | CHENNAI | surrey | FINANCE    | 2026-09-24   | 167000 |
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
