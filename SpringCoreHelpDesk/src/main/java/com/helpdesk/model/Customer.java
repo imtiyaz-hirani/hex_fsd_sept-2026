@@ -8,5 +8,7 @@ public class Customer {
     private int age;
     private Plan plan;
 
+    private User user;
+
     //constructor , getter, setter, toString
 }
