@@ -1,9 +1,12 @@
 package com.helpdesk.service;
 
 import com.helpdesk.model.Customer;
+import com.helpdesk.model.Ticket;
 import com.helpdesk.repository.CustomerRepository;
 import com.helpdesk.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
@@ -28,5 +31,9 @@ public class CustomerService {
         userRepository.insertUser(customer.getUser());
         // Save Customer to DB
         customerRepository.insertCustomer(customer);
+    }
+
+    public List<Ticket> getAllTickets(String username) {
+        return customerRepository.getAllTickets(username);
     }
 }

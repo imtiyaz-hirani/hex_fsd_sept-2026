@@ -15,5 +15,91 @@ public class Ticket {
 
     private Customer customer;
 
-    //constructor , getter, setter, toString
+    public Ticket() {
+    }
+
+    public Ticket(int id, String subject, String issue, LocalDate createdAt, Priority priority, Status status, Customer customer) {
+        this.id = id;
+        this.subject = subject;
+        this.issue = issue;
+        this.createdAt = createdAt;
+        this.priority = priority;
+        this.status = status;
+        this.customer = customer;
+    }
+
+    public Ticket(int id, String subject, LocalDate createdAt, Priority priority, Status status) {
+        this.id = id;
+        this.subject = subject;
+        this.createdAt = createdAt;
+        this.priority = priority;
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getIssue() {
+        return issue;
+    }
+
+    public void setIssue(String issue) {
+        this.issue = issue;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", createdAt=" + createdAt +
+                ", priority=" + priority +
+                ", status=" + status +
+                '}';
+    }
 }
