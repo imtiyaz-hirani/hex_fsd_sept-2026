@@ -3,6 +3,7 @@ package com.helpdesk.model;
 import com.helpdesk.enums.Role;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Instant;
 
@@ -25,6 +26,9 @@ public class User {
     @Column(name = "created_id")
     @CreationTimestamp
     private Instant createdAt;
+
+    @Column(name = "is_active" )
+    private boolean isActive = true;
 
     public User() {
     }
@@ -75,6 +79,14 @@ public class User {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override
