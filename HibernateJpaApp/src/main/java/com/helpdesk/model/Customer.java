@@ -11,6 +11,9 @@ public class Customer { // c
     private String name;
     private String city;
 
+    @OneToOne
+    private User user;
+
     public Customer() {
     }
 
