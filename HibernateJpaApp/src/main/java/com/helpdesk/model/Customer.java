@@ -3,7 +3,7 @@ package com.helpdesk.model;
 import jakarta.persistence.*;
 
 @Entity // Creates a table
-public class Customer {
+public class Customer { // c
     @Id // This makes id a Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // This makes id auto_increment
     private int id;
