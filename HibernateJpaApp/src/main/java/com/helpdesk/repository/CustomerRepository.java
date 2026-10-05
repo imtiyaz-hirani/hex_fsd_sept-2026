@@ -6,7 +6,9 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CustomerRepository {
@@ -38,6 +40,12 @@ public class CustomerRepository {
                 .getResultList(); // List<Object> -- ClassCastException
 
         */
+    }
+
+    public Optional<Customer> getCustomerById(int customerId) {
+        return Optional
+                .ofNullable(entityManager
+                                .find(Customer.class, customerId));
     }
 }
 /*

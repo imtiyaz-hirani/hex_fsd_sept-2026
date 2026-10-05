@@ -14,10 +14,10 @@ public class App {
 
         /* Insert Customer */
         CustomerService customerService = context.getBean(CustomerService.class);
-        /*
+
         customerService.insert("Harry Potter", "London");
         System.out.println("Customer record added..");
-        */
+
         List<Customer> list =  customerService.getAllCustomers();
         list.forEach(System.out::println);
 

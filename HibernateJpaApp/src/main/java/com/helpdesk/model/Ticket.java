@@ -33,6 +33,16 @@ public class Ticket {
     @JoinColumn(name = "executive_id")
     private Executive executive;
 
+    public Ticket() {
+    }
+
+    public Ticket(String subject, String issue, Priority priority, Status status) {
+        this.subject = subject;
+        this.issue = issue;
+        this.priority = priority;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }

@@ -34,12 +34,12 @@ public class ExecutiveService {
         Manager manager = optional.get();
 
         // Step 2: Prepare User object and insert it in db
-        User user = new User(username,password,Role.EXECUTIVE); // <-- Prepared with 3 fields
-        userRepository.insert(user);
-        // Sep 2.5: Fetch entire user object by its username
+        User user = new User(username,password,Role.EXECUTIVE); // <-- Prepared with 3 fields -- 100X
+        userRepository.insert(user); //100X also has field with id
+        /* Sep 2.5: Fetch entire user object by its username
         List<User> list=  userRepository.getUserByUsername(username); //<- this user has all 6 fields including id
          user = list.getFirst();
-
+        */
         // Step 3: Attach user and manager to executive
         executive.setUser(user);
         executive.setManager(manager);

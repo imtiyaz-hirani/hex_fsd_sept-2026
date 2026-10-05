@@ -13,9 +13,8 @@ public class UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-
-    public void insert(User user) {
-        entityManager.persist(user);
+    public void insert(User user) { //100X
+        entityManager.persist(user); // 100X
     }
 
     public List<User> getUserByUsername(String username) {

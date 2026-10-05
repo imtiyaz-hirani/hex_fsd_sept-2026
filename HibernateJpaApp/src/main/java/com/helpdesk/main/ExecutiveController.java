@@ -12,12 +12,12 @@ public class ExecutiveController {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         ExecutiveService executiveService =  context.getBean(ExecutiveService.class);
         /* Take this from user either thru react app or console using scanner or just prepare the input */
-        int managerId = 1;
+        int managerId = 2;
         Executive executive = new Executive();
-        executive.setName("Ginny Weasley");
-        executive.setJobTitle(JobTitle.FIRST_LINE_SUPPORT);
-        String username = "ginny@gmail.com";
-        String password = "ginny@123";
+        executive.setName("draco malfoy");
+        executive.setJobTitle(JobTitle.SECOND_LINE_SUPPORT);
+        String username = "draco@gmail.com";
+        String password = "draco@123";
 
         executiveService.insertExecutive(managerId, executive , username, password);
         System.out.println("record inserted...");
