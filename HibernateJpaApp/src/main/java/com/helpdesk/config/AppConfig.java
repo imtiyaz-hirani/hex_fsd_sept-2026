@@ -23,10 +23,11 @@ public class AppConfig {
 
     @Bean
     public DataSource getDatasource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/helpdesk_v2");
-        dataSource.setUsername("root");
-        dataSource.setPassword("deepcoder");
+        DriverManagerDataSource dataSource = new DriverManagerDataSource(
+                "jdbc:mysql://localhost:3306/helpdesk_v2",
+                "root",
+                "deepcoder"
+        );
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         return dataSource;
     }
