@@ -1,8 +1,10 @@
 package com.helpdesk.service;
 
+import com.helpdesk.dto.TicketRespDto;
 import com.helpdesk.enums.Priority;
 import com.helpdesk.enums.Status;
 import com.helpdesk.exception.ResourceNotFoundException;
+import com.helpdesk.mapper.TicketMapper;
 import com.helpdesk.model.Customer;
 import com.helpdesk.model.Ticket;
 import com.helpdesk.repository.CustomerRepository;
@@ -10,6 +12,7 @@ import com.helpdesk.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,5 +42,16 @@ public class TicketService {
 
         // Step 4: Add ticket object
         ticketRepository.insert(ticket);
+    }
+
+    public List<TicketRespDto> fetchTicketInfo() {
+        // Step 1: Fetch all tickets from the repository : List<Ticket>
+        List<Ticket> list = ticketRepository.fetchTicketInfoV1();
+        // Step 2: convert the List<Ticket> to List<TicketRespDto> using Mapper.
+
+        return list
+                .stream()
+                .map(TicketMapper ::convertEntityToDto)
+                .toList();
     }
 }

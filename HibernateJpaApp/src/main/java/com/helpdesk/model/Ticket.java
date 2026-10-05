@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 
 @Entity
-public class Ticket {
+public class Ticket { //t
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -27,11 +27,11 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private Customer customer; // t.customer
 
     @ManyToOne
     @JoinColumn(name = "executive_id")
-    private Executive executive;
+    private Executive executive; // t.executive
 
     public Ticket() {
     }
