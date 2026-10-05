@@ -20,6 +20,7 @@ public class Executive {
     private Manager manager;
 
     @OneToOne
+    @JoinColumn(nullable = false)
     private User user;
 
     public int getId() {

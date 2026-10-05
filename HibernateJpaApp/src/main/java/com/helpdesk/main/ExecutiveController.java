@@ -31,4 +31,5 @@ Spring's Context
  ExecutiveService
  ExecutiveRepository
  EntityManager (persistence)
+ UserRepository
 * */
