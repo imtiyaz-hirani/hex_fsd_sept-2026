@@ -32,6 +32,8 @@ public class CustomerService {
     }
 
     public void deleteById(long id) {
+        // Check if id is valid
+        getById(id);
         customerRepository.deleteById(id);
     }
 }
