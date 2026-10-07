@@ -5,6 +5,7 @@ import com.springboot.helpdesk.model.Executive;
 import com.springboot.helpdesk.service.ExecutiveService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,9 @@ public class ExecutiveController {
      Map DTO to Entity
      Insert Entity IN Db
      * */
-    @PostMapping("/api/executive/add")
-    public Executive insertExecutive(@Valid @RequestBody ExecutiveDto executiveDto){
-        return executiveService.add(executiveDto);
+    @PostMapping("/api/executive/add/{managerId}")
+    public void insertExecutive(@Valid @RequestBody ExecutiveDto executiveDto,
+                                     @PathVariable Long managerId){
+         executiveService.add(executiveDto, managerId);
     }
 }

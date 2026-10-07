@@ -25,4 +25,7 @@ public class Executive {
     private JobTitle jobTitle;
     @OneToOne
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "manager_id", nullable = false)
+    private Manager manager;
 }
