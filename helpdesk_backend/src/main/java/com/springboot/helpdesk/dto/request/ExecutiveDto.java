@@ -13,8 +13,8 @@ public record ExecutiveDto(
         @NotNull(message = "Email is required")
         @Email(message = "Email seems invalid")
         String email,
-        @NotBlank(message = "Name is required")
-        @NotNull(message = "Name is required")
+        @NotBlank(message = "Contact is required")
+        @NotNull(message = "Contact is required")
         @Size(min = 10, max = 10, message = "contact should be 10 digit mobile number")
         String contact
 ) {
