@@ -23,4 +23,6 @@ public class Executive {
     private String contact;
     @Enumerated(EnumType.STRING)
     private JobTitle jobTitle;
+    @OneToOne
+    private User user;
 }

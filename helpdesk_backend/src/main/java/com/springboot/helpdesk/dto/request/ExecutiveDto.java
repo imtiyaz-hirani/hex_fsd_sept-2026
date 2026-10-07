@@ -16,6 +16,13 @@ public record ExecutiveDto(
         @NotBlank(message = "Contact is required")
         @NotNull(message = "Contact is required")
         @Size(min = 10, max = 10, message = "contact should be 10 digit mobile number")
-        String contact
+        String contact,
+        @NotBlank
+        @NotNull
+        @Size(min = 3, max = 15)
+        String username,
+        @NotBlank
+        @NotNull
+        String password
 ) {
 }
