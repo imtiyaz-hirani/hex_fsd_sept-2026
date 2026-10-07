@@ -19,5 +19,6 @@ public class Customer {
     private String name;
     private String city;
     private String email;
-
+    @OneToOne
+    private User user;
 }

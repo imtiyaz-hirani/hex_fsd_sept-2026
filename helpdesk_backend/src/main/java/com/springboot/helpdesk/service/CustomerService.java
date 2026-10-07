@@ -1,5 +1,6 @@
 package com.springboot.helpdesk.service;
 
+import com.springboot.helpdesk.dto.request.CustomerDto;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.repository.CustomerRepository;
@@ -15,8 +16,11 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
 
-    public Customer insertCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer insertCustomer(CustomerDto customer) {
+        // Step 1: Prepare user obj and save it in DB
+        // Map CustomerDto to Customer entity
+        // Save Customer entity
+        return null;
     }
 
     public Customer getById(long id) {

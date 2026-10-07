@@ -1,7 +1,9 @@
 package com.springboot.helpdesk.controller;
 
+import com.springboot.helpdesk.dto.request.CustomerDto;
 import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +16,8 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/api/customer/add")
-    public Customer insertCustomer(@RequestBody Customer customer){
-        return customerService.insertCustomer(customer);
+    public Customer insertCustomer(@Valid @RequestBody CustomerDto customerDto){
+        return customerService.insertCustomer(customerDto);
     }
 
     @GetMapping("/api/customer/{id}") ///api/customer/1
