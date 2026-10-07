@@ -29,6 +29,12 @@ public class User {
     @CreationTimestamp
     private Instant createdAt;
 
+    public User(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
     @PrePersist
     public void init(){
         isActive = true; // 0X01

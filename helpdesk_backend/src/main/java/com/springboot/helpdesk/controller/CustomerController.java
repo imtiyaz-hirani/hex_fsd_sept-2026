@@ -16,8 +16,8 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/api/customer/add")
-    public Customer insertCustomer(@Valid @RequestBody CustomerDto customerDto){
-        return customerService.insertCustomer(customerDto);
+    public void insertCustomer(@Valid @RequestBody CustomerDto customerDto){
+         customerService.insertCustomer(customerDto);
     }
 
     @GetMapping("/api/customer/{id}") ///api/customer/1

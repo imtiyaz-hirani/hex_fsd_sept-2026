@@ -1,8 +1,11 @@
 package com.springboot.helpdesk.service;
 
 import com.springboot.helpdesk.dto.request.CustomerDto;
+import com.springboot.helpdesk.enums.Role;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
+import com.springboot.helpdesk.mapper.CustomerMapper;
 import com.springboot.helpdesk.model.Customer;
+import com.springboot.helpdesk.model.User;
 import com.springboot.helpdesk.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,12 +18,23 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final UserService userService;
 
-    public Customer insertCustomer(CustomerDto customer) {
+    public void insertCustomer(CustomerDto dto) {
         // Step 1: Prepare user obj and save it in DB
+        User user = userService.getUserObj(
+                dto.username(),
+                dto.password(),
+                Role.CUSTOMER
+        );
+
         // Map CustomerDto to Customer entity
+        Customer customer = CustomerMapper.convertDtoToEntity(dto);
+        // Attach user to Customer
+        customer.setUser(user);
+
         // Save Customer entity
-        return null;
+         customerRepository.save(customer);
     }
 
     public Customer getById(long id) {

@@ -22,6 +22,7 @@ public class ExecutiveService {
     private final ExecutiveRepository executiveRepository;
     private final UserRepository userRepository;
     private final ManagerRepository managerRepository;
+    private final UserService userService;
 
     public void add(@Valid ExecutiveDto executiveDto, Long managerId) {
         // Step 0: Fetch manager from DB using managerId
@@ -35,11 +36,12 @@ public class ExecutiveService {
         Executive
             User user <-- User must go in DB first and then Executive next
         * */
-        User user = new User();
-        user.setUsername(executiveDto.username());
-        user.setPassword(executiveDto.password());
-        user.setRole(Role.EXECUTIVE);
-        user = userRepository.save(user); // <-- this is a full created user obj with id
+        User user = userService.getUserObj(  // <-- this is a full created user obj with id
+                executiveDto.username(),
+                executiveDto.password(),
+                Role.EXECUTIVE
+        );
+
 
         // Step Map ExecutiveDto to Executive entity
         Executive executive = ExecutiveMapper.mapDtoToEntity(executiveDto);
