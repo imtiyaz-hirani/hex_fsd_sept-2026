@@ -3,6 +3,7 @@ package com.springboot.helpdesk.config;
 import com.springboot.helpdesk.dto.response.ErrorDto;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -22,6 +23,18 @@ public class GlobalExceptionHandler {
                 .body(
                         new ErrorDto(e.getMessage(),
                                 "Id not found in DB",
+                                Instant.now())
+                );
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorDto> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException e
+    ){
+        return ResponseEntity
+                .badRequest()
+                .body(
+                        new ErrorDto(e.getMessage(),
+                                "Validation failed",
                                 Instant.now())
                 );
     }
