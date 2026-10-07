@@ -1,6 +1,7 @@
 package com.springboot.helpdesk.config;
 
 import com.springboot.helpdesk.dto.response.ErrorDto;
+import com.springboot.helpdesk.exception.InvalidCallException;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -45,5 +46,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .badRequest()
                 .body(map );
+    }
+
+    @ExceptionHandler(InvalidCallException.class)
+    public ResponseEntity<ErrorDto> handleInvalidCallException(
+            InvalidCallException e
+    ){
+        //always reply the object not the string
+
+        return ResponseEntity
+                .badRequest()
+                .body(
+                        new ErrorDto(e.getMessage(),
+                                "Call is Invalid due to malformed data",
+                                Instant.now())
+                );
     }
 }

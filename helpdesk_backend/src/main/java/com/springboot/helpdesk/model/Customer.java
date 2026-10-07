@@ -2,6 +2,9 @@ package com.springboot.helpdesk.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +24,7 @@ public class Customer {
     private String email;
     @OneToOne
     private User user;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 }

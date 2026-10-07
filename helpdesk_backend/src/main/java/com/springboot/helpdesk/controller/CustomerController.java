@@ -1,6 +1,7 @@
 package com.springboot.helpdesk.controller;
 
 import com.springboot.helpdesk.dto.request.CustomerDto;
+import com.springboot.helpdesk.dto.request.CustomerUpdateDto;
 import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.service.CustomerService;
 import jakarta.validation.Valid;
@@ -33,5 +34,11 @@ public class CustomerController {
     @DeleteMapping("/api/customer/{id}")
     public void deleteById(@PathVariable long id){
         customerService.deleteById(id);
+    }
+
+    @PutMapping("/api/customer/{id}")
+    public void update(@PathVariable Long id,
+                       @RequestBody CustomerUpdateDto dto){
+        customerService.update(id, dto);
     }
 }
