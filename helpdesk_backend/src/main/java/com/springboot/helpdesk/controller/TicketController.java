@@ -2,6 +2,7 @@ package com.springboot.helpdesk.controller;
 
 import com.springboot.helpdesk.dto.request.TicketDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
+import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
 import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.model.Ticket;
 import com.springboot.helpdesk.service.TicketService;
@@ -41,6 +42,31 @@ public class TicketController {
                                              @RequestParam(name = "page" , required = false, defaultValue = "0") Integer page,
                                              @RequestParam(name = "size", required = false, defaultValue = "20") Integer size){
         return ticketService.getTicketsByCustomerUsername(customerUsername,page,size);
+    }
+
+
+    /*
+    Get tickets by executive username and display following info:
+    ticketId
+    executiveId
+    executiveName
+    ticketSubject
+    ticketPriority
+    ticketStatus
+    ticketCreatedAt
+    customerId
+    customerName
+
+    Make pagination optional
+    * */
+
+    @GetMapping("/api/ticket/executive")
+    public List<TicketInfoDtoV2> getTicketByExecutiveUsername(
+            @RequestParam("username") String executiveUsername,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "10") Integer size)
+    {
+        return ticketService.getTicketByExecutiveUsername(executiveUsername, page, size);
     }
 }
 /*
