@@ -15,7 +15,7 @@ import java.time.Instant;
 @Setter
 @ToString
 @Entity
-public class Ticket {
+public class Ticket {  //t
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -35,8 +35,8 @@ public class Ticket {
     private Status status;
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private Customer customer; //t.customer c
     @ManyToOne
     @JoinColumn(name = "executive_id")
-    private Executive executive;
+    private Executive executive; //t.executive e
 }

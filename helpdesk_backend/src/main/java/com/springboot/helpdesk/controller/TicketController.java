@@ -1,10 +1,15 @@
 package com.springboot.helpdesk.controller;
 
 import com.springboot.helpdesk.dto.request.TicketDto;
+import com.springboot.helpdesk.dto.response.TicketInfoDto;
+import com.springboot.helpdesk.model.Customer;
+import com.springboot.helpdesk.model.Ticket;
 import com.springboot.helpdesk.service.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +27,18 @@ public class TicketController {
     public void assignExecutive(@PathVariable Long  executiveId ,
                                 @PathVariable Long ticketId){
         ticketService.assignExecutive(executiveId, ticketId);
+    }
+
+    @GetMapping("/api/ticket/v1/{customerId}")
+    public List<TicketInfoDto> getTicketsByCustomerId(@PathVariable Long customerId,
+                                                      @RequestParam("page") int page,
+                                                      @RequestParam("size") int size){
+        return ticketService.getTicketsByCustomerId(customerId,page,size);
+    }
+
+    @GetMapping("/api/ticket/v2")
+    public void getTicketsByCustomerUsername(@RequestParam("username") String customerUsername){
+
     }
 }
 /*
