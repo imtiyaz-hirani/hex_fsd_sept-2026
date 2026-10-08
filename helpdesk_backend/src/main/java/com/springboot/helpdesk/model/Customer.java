@@ -12,7 +12,7 @@ import java.time.Instant;
 @Setter
 @ToString
 @Entity
-public class Customer {
+public class Customer { //c
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Customer {
     private String city;
     private String email;
     @OneToOne
-    private User user;
+    private User user; //c.user u
 
     @UpdateTimestamp
     private Instant updatedAt;

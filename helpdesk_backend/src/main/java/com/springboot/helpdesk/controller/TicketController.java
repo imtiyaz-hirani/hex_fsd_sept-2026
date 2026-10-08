@@ -37,8 +37,10 @@ public class TicketController {
     }
 
     @GetMapping("/api/ticket/v2")
-    public void getTicketsByCustomerUsername(@RequestParam("username") String customerUsername){
-
+    public List<TicketInfoDto> getTicketsByCustomerUsername(@RequestParam("username") String customerUsername,
+                                             @RequestParam(name = "page" , required = false, defaultValue = "0") Integer page,
+                                             @RequestParam(name = "size", required = false, defaultValue = "20") Integer size){
+        return ticketService.getTicketsByCustomerUsername(customerUsername,page,size);
     }
 }
 /*
