@@ -3,7 +3,9 @@ package com.springboot.helpdesk.controller;
 import com.springboot.helpdesk.dto.request.TicketDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
+import com.springboot.helpdesk.dto.response.TicketRespDto;
 import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
+import com.springboot.helpdesk.enums.Priority;
 import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.model.Ticket;
 import com.springboot.helpdesk.service.TicketService;
@@ -81,6 +83,10 @@ public class TicketController {
         return ticketService.getTicketStatusStatWithNumCustomers();
     }
 
+    @GetMapping("/api/ticket/by-priority")
+    public List<TicketRespDto> getTicketsByPriority(@RequestParam("priority")Priority priority){
+        return ticketService.getTicketsByPriority(priority);
+    }
 }
 /*
     OPEN tickets

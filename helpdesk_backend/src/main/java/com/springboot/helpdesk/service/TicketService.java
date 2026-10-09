@@ -3,7 +3,9 @@ package com.springboot.helpdesk.service;
 import com.springboot.helpdesk.dto.request.TicketDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
+import com.springboot.helpdesk.dto.response.TicketRespDto;
 import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
+import com.springboot.helpdesk.enums.Priority;
 import com.springboot.helpdesk.enums.Status;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import com.springboot.helpdesk.mapper.TicketMapper;
@@ -80,6 +82,15 @@ public class TicketService {
 
     public List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers() {
         return ticketRepository.getTicketStatusStatWithNumCustomers();
+    }
+
+    public List<TicketRespDto> getTicketsByPriority(Priority priority) {
+        List<Ticket> list = ticketRepository.findByPriority(priority);
+        // Map List<Ticket> to List<TicketDto> using Mapper
+        return list
+                .stream()
+                .map(TicketMapper :: convertEntityToDto)
+                .toList();
     }
 }
 /*

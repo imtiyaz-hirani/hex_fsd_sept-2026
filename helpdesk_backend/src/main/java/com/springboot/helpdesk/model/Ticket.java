@@ -19,9 +19,9 @@ public class Ticket {  //t
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;  //findById
 
-    private String subject;
+    private String subject; // findBySubject(subject)
     @Column(length = 1000)
     private String issue;
     @CreationTimestamp
@@ -30,9 +30,9 @@ public class Ticket {  //t
     @UpdateTimestamp
     private Instant updatedAt;
     @Enumerated(EnumType.STRING)
-    private Priority priority;
+    private Priority priority;  // findByPriority(priority) : List<Ticket>
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status; // findByStatus(status) : List<Ticket>
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer; //t.customer c
