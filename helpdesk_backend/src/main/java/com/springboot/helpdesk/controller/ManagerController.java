@@ -1,13 +1,15 @@
 package com.springboot.helpdesk.controller;
 
 import com.springboot.helpdesk.dto.request.ManagerDto;
+import com.springboot.helpdesk.dto.response.JobTitleExecutiveCountDto;
+import com.springboot.helpdesk.enums.JobTitle;
 import com.springboot.helpdesk.model.Manager;
 import com.springboot.helpdesk.service.ManagerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,5 +20,33 @@ public class ManagerController {
     @PostMapping("/api/manager/add")
     public Manager add(@Valid @RequestBody ManagerDto managerDto){
         return managerService.add(managerDto);
+    }
+
+    /*
+    JobTitle            |   No of Executives
+ FIRST_LINE_SUPPORT             2
+ SECOND_LINE_SUPPORT            3
+
+for(){ //100   [N+1 problem]
+   --> DB (3)  : 100
+}
+
+GroupBy
+-------
+FIRST_LINE_SUPPORT    count(id)
+
+    Name of Executive  |  No of Tickets   |   No of CLOSED Tickets  |
+
+
+    * */
+    @GetMapping("/api/manager/jobtitle/stat/executive/count")
+    public List<JobTitleExecutiveCountDto> getExecutiveStatWithJobTitleAndCount(){
+        return managerService.getExecutiveStatWithJobTitleAndCount();
+    }
+
+    @PutMapping("/api/jobtitle/update/{executiveId}")
+    public void updateJobTitle(@PathVariable long executiveId,
+                               @RequestParam("jobTitle") JobTitle jobTitle){
+         managerService.updateJobTitle(executiveId,jobTitle);
     }
 }
