@@ -3,6 +3,7 @@ package com.springboot.helpdesk.service;
 import com.springboot.helpdesk.dto.request.TicketDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
+import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
 import com.springboot.helpdesk.enums.Status;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import com.springboot.helpdesk.mapper.TicketMapper;
@@ -75,6 +76,10 @@ public class TicketService {
     public List<TicketInfoDtoV2> getTicketByExecutiveUsername(String executiveUsername, Integer page, Integer size) {
         Pageable pageable =  PageRequest.of(page,size);
         return ticketRepository.getTicketByExecutiveUsername(executiveUsername, pageable);
+    }
+
+    public List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers() {
+        return ticketRepository.getTicketStatusStatWithNumCustomers();
     }
 }
 /*

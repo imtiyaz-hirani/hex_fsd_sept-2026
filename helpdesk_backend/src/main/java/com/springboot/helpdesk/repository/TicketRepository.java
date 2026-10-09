@@ -2,6 +2,7 @@ package com.springboot.helpdesk.repository;
 
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
+import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
 import com.springboot.helpdesk.model.Ticket;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -52,4 +53,11 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             where u.username=?1
             """)
     List<TicketInfoDtoV2> getTicketByExecutiveUsername(String executiveUsername, Pageable pageable);
+
+    @Query("""
+            select t.status as status,count(c.id) as numberOfCustomers
+            from Ticket t JOIN t.customer c
+            group by t.status
+            """)
+    List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers();
 }

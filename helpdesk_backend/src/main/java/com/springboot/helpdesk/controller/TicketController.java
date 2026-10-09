@@ -3,6 +3,7 @@ package com.springboot.helpdesk.controller;
 import com.springboot.helpdesk.dto.request.TicketDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
+import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
 import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.model.Ticket;
 import com.springboot.helpdesk.service.TicketService;
@@ -68,6 +69,18 @@ public class TicketController {
     {
         return ticketService.getTicketByExecutiveUsername(executiveUsername, page, size);
     }
+
+    /*
+     Ticket Status  |  Num. of Customers
+     OPEN               34
+     IN_PROCESS         67
+     CLOSED             123
+    * */
+    @GetMapping("/api/ticket/status/customers/stat")
+    public List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers(){
+        return ticketService.getTicketStatusStatWithNumCustomers();
+    }
+
 }
 /*
     OPEN tickets
