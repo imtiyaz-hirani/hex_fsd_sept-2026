@@ -2,6 +2,7 @@ package com.springboot.helpdesk.repository;
 
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
+import com.springboot.helpdesk.dto.response.TicketRespDto;
 import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
 import com.springboot.helpdesk.enums.Priority;
 import com.springboot.helpdesk.enums.Status;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.List;
 
 @Repository
@@ -69,4 +71,19 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             group by t.status
             """)
     List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers();
+
+
+
+    @Query("""
+            select t.id as ticketId, t.subject as subject, t.createdAt as createdAt, t.priority as priority, t.status as status
+            from Ticket t
+            where (?1 IS NULL OR t.priority = ?1)
+            AND  (?2 IS NULL OR t.status = ?2)
+            AND (?3 IS NULL OR t.createdAt >= ?3)
+            AND (?4 IS NULL OR t.createdAt <= ?4)
+            """)
+    List<TicketRespDto> dynamicFilterTicket(Priority priority,
+                                            Status status,
+                                            Instant fromDate,
+                                            Instant toDate);
 }

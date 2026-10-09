@@ -6,6 +6,7 @@ import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
 import com.springboot.helpdesk.dto.response.TicketRespDto;
 import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
 import com.springboot.helpdesk.enums.Priority;
+import com.springboot.helpdesk.enums.Status;
 import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.model.Ticket;
 import com.springboot.helpdesk.service.TicketService;
@@ -13,6 +14,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -86,6 +89,15 @@ public class TicketController {
     @GetMapping("/api/ticket/by-priority")
     public List<TicketRespDto> getTicketsByPriority(@RequestParam("priority")Priority priority){
         return ticketService.getTicketsByPriority(priority);
+    }
+
+    @GetMapping("/api/ticket/filter")
+    public List<TicketRespDto> dynamicFilterTicket(@RequestParam(value = "priority", required = false) Priority priority,
+                                                   @RequestParam(value = "status", required = false)Status status,
+                                                   @RequestParam(value = "fromDate", required = false) LocalDate fromDate,
+                                                   @RequestParam(value = "toDate", required = false)LocalDate toDate
+                                                   ){
+        return ticketService.dynamicFilterTicket(priority,status, fromDate, toDate);
     }
 }
 /*

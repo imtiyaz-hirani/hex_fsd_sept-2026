@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.*;
 import java.util.List;
 
 @Service
@@ -92,7 +93,20 @@ public class TicketService {
                 .map(TicketMapper :: convertEntityToDto)
                 .toList();
     }
-}
+
+
+
+    public List<TicketRespDto> dynamicFilterTicket(Priority priority,
+                                                   Status status,
+                                                   LocalDate fromDate,
+                                                   LocalDate toDate) {
+
+        return ticketRepository.dynamicFilterTicket(priority,
+                                                    status,
+                            fromDate == null ? null: fromDate.atStartOfDay(ZoneOffset.UTC).toInstant(),
+                             toDate == null? null:toDate.atStartOfDay(ZoneOffset.UTC).toInstant());
+    }
+} // yyyy-MM-ddThh:mm:sec.nano
 /*
 void m1(){
     if(this == true)
