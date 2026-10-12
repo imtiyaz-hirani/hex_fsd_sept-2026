@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -22,10 +23,10 @@ public class ExecutiveController {
      Map DTO to Entity
      Insert Entity IN Db
      * */
-    @PostMapping("/api/executive/add/{managerId}")
+    @PostMapping("/api/executive/add")
     public void insertExecutive(@Valid @RequestBody ExecutiveDto executiveDto,
-                                     @PathVariable Long managerId){
-         executiveService.add(executiveDto, managerId);
+                                Principal principal){
+         executiveService.add(executiveDto, principal.getName()); // principal.getName() give us logged manager username
     }
 
 }

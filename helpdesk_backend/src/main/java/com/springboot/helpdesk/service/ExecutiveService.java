@@ -12,6 +12,7 @@ import com.springboot.helpdesk.repository.ManagerRepository;
 import com.springboot.helpdesk.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,13 +24,11 @@ public class ExecutiveService {
     private final UserRepository userRepository;
     private final ManagerRepository managerRepository;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public void add(@Valid ExecutiveDto executiveDto, Long managerId) {
-        // Step 0: Fetch manager from DB using managerId
-        Optional<Manager> optional =  managerRepository.findById(managerId);
-        if(optional.isEmpty())
-            throw new ResourceNotFoundException("Manager id Invalid");
-        Manager manager = optional.get();
+    public void add(@Valid ExecutiveDto executiveDto, String managerUsername) {
+        // Step 0: Fetch manager from DB using managerUsername
+        Manager manager =  managerRepository.getByUsername(managerUsername);
 
         // Step 1: Prepare User object and save it in DB
         /*
@@ -42,6 +41,8 @@ public class ExecutiveService {
                 Role.EXECUTIVE
         );
 
+        // Step 1.5 Encode password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Step Map ExecutiveDto to Executive entity
         Executive executive = ExecutiveMapper.mapDtoToEntity(executiveDto);

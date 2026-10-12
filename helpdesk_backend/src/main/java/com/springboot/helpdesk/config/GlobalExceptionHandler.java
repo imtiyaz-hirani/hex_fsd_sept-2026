@@ -2,6 +2,7 @@ package com.springboot.helpdesk.config;
 
 import com.springboot.helpdesk.dto.response.ErrorDto;
 import com.springboot.helpdesk.exception.InvalidCallException;
+import com.springboot.helpdesk.exception.OwnershipException;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -59,6 +60,21 @@ public class GlobalExceptionHandler {
                 .body(
                         new ErrorDto(e.getMessage(),
                                 "Call is Invalid due to malformed data",
+                                Instant.now())
+                );
+    }
+
+    @ExceptionHandler(OwnershipException.class)
+    public ResponseEntity<ErrorDto> handleOwnershipException(
+            OwnershipException e
+    ){
+        //always reply the object not the string
+
+        return ResponseEntity
+                .badRequest()
+                .body(
+                        new ErrorDto(e.getMessage(),
+                                "Logged-in User cannot perform this operation",
                                 Instant.now())
                 );
     }

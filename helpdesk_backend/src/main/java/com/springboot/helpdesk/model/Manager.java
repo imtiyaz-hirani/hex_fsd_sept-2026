@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 @Entity
-public class Manager {
+public class Manager { //
 
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO)
@@ -17,5 +17,5 @@ public class Manager {
     @Column(nullable = false)
     private String name;
     @OneToOne
-    private User user;
+    private User user; //m.user u
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
@@ -18,4 +19,11 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
             group by e.jobTitle
             """)
     List<JobTitleExecutiveCountDto> getExecutiveStatWithJobTitleAndCount();
+
+    @Query("""
+            select m from Manager m
+            join m.user u
+            where u.username=?1
+            """)
+    Manager getByUsername(String managerUsername);
 }

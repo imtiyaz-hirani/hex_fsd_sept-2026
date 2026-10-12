@@ -14,6 +14,7 @@ import com.springboot.helpdesk.repository.ManagerRepository;
 import com.springboot.helpdesk.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,12 +25,13 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
     private final UserRepository userRepository;
     private final ExecutiveRepository executiveRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Manager add(@Valid ManagerDto managerDto) {
+    public void add(@Valid ManagerDto managerDto) {
         // Step 1: Prepare user object and save it in DB
         User user = new User();
         user.setUsername(managerDto.username());
-        user.setPassword(managerDto.password());
+        user.setPassword(passwordEncoder.encode(managerDto.password()));
         user.setRole(Role.MANAGER);
         user = userRepository.save(user); //<-- This user now has an id attached
 
@@ -40,7 +42,7 @@ public class ManagerService {
         manager.setUser(user);
 
         // Step 4: save manager
-        return managerRepository.save(manager);
+         managerRepository.save(manager);
     }
 
     public List<JobTitleExecutiveCountDto> getExecutiveStatWithJobTitleAndCount() {
