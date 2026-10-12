@@ -1,0 +1,297 @@
+{
+  "info": {
+    "_postman_id": "c2ce4dfe-4132-4398-b532-9dfe54282dc7",
+    "name": "HelpDesk",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "4723929"
+  },
+  "item": [
+    {
+      "name": "POST Ticket",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "hermione@123",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "hermione",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"subject\" : \"Internet Not Working\",\r\n    \"issue\": \"VPN not establishing connection. cannot access app dependencies from nexus\",\r\n    \"priority\": \"HIGH\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/ticket/add",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ticket",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "AssignExcutiveToTicket",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/ticket/assign/2/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ticket",
+            "assign",
+            "2",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Ticket by customer username-optional pagination",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/ticket/v2?username=frodo&page=0&size=5",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ticket",
+            "v2"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "frodo"
+            },
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Ticket by customer id-mandatory pagination",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/ticket/v1/1?page=0&size=5",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ticket",
+            "v1",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Tickets by executive username",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/ticket/executive?username=emma",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ticket",
+            "executive"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "emma"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ADMIN ADD",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin@123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/admin/add",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Manager ADD by ADMIN",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "admin@123",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "admin",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\":\"Albus Dumbledore\",\r\n    \"username\" : \"albus\",\r\n    \"password\" : \"admin@123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/manager/add",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "manager",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AssignExcutiveToTicket",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "admin@123",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "albus",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/api/ticket/assign/1/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ticket",
+            "assign",
+            "1",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
