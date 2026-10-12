@@ -10,6 +10,7 @@ import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.model.User;
 import com.springboot.helpdesk.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     public void insertCustomer(CustomerDto dto) {
         // Step 1: Prepare user obj and save it in DB
@@ -30,6 +32,8 @@ public class CustomerService {
                 Role.CUSTOMER
         );
 
+        // Step 1.5 : Encode the password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         // Map CustomerDto to Customer entity
         Customer customer = CustomerMapper.convertDtoToEntity(dto);
         // Attach user to Customer
