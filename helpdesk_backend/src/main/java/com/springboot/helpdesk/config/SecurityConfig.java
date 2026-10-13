@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -48,7 +49,7 @@ public class SecurityConfig {
     }
 */
     private final MyUserDetailsService myUserDetailsService ;
-
+    private final JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain defaultFilterChain(HttpSecurity http) throws Exception {
@@ -56,6 +57,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST,"/api/customer/add").permitAll()
+                        // login API
+                        .requestMatchers(HttpMethod.GET,"/api/auth/login").authenticated()
+
                         .requestMatchers(HttpMethod.GET,"/api/customer/{id}").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.POST,"/api/ticket/add").hasAuthority("CUSTOMER")
 
@@ -69,6 +73,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT,"/api/ticket/assign/{executiveId}/{ticketId}").hasAuthority("MANAGER")
                         .anyRequest().permitAll()
                 );
+        // Add jwt filter before Spring's Auth Filter
+        http.addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class);
+
         http.httpBasic(Customizer.withDefaults());
         return http.build();
     }
