@@ -1,10 +1,12 @@
 package com.springboot.helpdesk.service;
 
+import com.springboot.helpdesk.dto.request.TicketDto;
 import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.enums.Priority;
 import com.springboot.helpdesk.enums.Status;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import com.springboot.helpdesk.model.Customer;
+import com.springboot.helpdesk.model.Ticket;
 import com.springboot.helpdesk.repository.CustomerRepository;
 import com.springboot.helpdesk.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
@@ -67,8 +69,8 @@ import static org.junit.jupiter.api.Assertions.*;
         verifyNoMoreInteractions(ticketRepository);
     }
 
-@Test
-public void getTicketsByCustomerIdTest_Invalid() {
+    @Test
+    public void getTicketsByCustomerIdTest_Invalid() {
      when(customerRepository.findById(5L)).thenThrow(ResourceNotFoundException.class);
 
     assertThrows(ResourceNotFoundException.class,
@@ -82,4 +84,33 @@ public void getTicketsByCustomerIdTest_Invalid() {
     verifyNoMoreInteractions(customerRepository);
     verifyNoMoreInteractions(ticketRepository);
 }
+
+    @Test
+    public void saveTest(){
+        /*
+        * To call add method of service i need 2 things
+        * 1. customerUsername
+        * 2. ticketDto
+        * this info comes from postman/react app via controller.
+        * here , we need to define it ourself
+        *
+        * */
+        // mock
+        String customerUsername = "john";
+        TicketDto ticketDto = new TicketDto("testSubject", "testIssue",Priority.HIGH);
+        // Before making actual call, lets mock the repositories in that add method
+        Customer customer = new Customer();
+        when(customerRepository.getByUsername(customerUsername)).thenReturn(customer);
+
+        // when this save method is call, don't go to DB and save, just assume it saved and give back any ticket class
+         when(ticketRepository.save(any(Ticket.class))).thenReturn(any(Ticket.class));
+
+        // actual call
+        ticketService.add(customerUsername,ticketDto);
+
+        // Tip: once u mock - it won't go to db but it still make a call.
+        // verify if repo calls are happening only once
+        verify(customerRepository,times(1)).getByUsername(customerUsername);
+        verify(ticketRepository,times(1)).save(any(Ticket.class));
+    }
 }

@@ -35,16 +35,16 @@ public class TicketService {
     public void add(String customerUsername, TicketDto ticketDto) {
         // Step 1: Fetch Customer Object from DB using given customerId
         Customer customer =  customerRepository.getByUsername(customerUsername);
-
+        System.out.println("i am at line 38");
         // Step 2: Map TicketDto to Ticket entity
         Ticket ticket = TicketMapper.convertDtoToEntity(ticketDto);
-
+        System.out.println("i am at line 41");
         // Step 3: Attach customer to Ticket
         ticket.setCustomer(customer);
-
+        System.out.println("i am at line 44");
         // Step 3.5: Assign Status as Open to Ticket
         ticket.setStatus(Status.OPEN);
-
+        System.out.println("i am at line 47");
         // Step 4: Insert Ticket in DB
         ticketRepository.save(ticket);
     }
