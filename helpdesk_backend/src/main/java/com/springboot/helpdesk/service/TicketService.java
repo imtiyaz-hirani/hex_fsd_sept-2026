@@ -69,9 +69,13 @@ public class TicketService {
     }
 
     public List<TicketInfoDto> getTicketsByCustomerId(Long customerId, int page, int size) {
+        // Validate customerId
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer Id Invalid"));
+
         // Create an Instance of Pageable interface using page and size values thru PageRequest
         Pageable pageable =  PageRequest.of(page,size);
-        return ticketRepository.getTicketByCustomerId(customerId,pageable);
+       return ticketRepository.getTicketByCustomerId(customerId,pageable);
     }
 
     public List<TicketInfoDto> getTicketsByCustomerUsername(String customerUsername, Integer page, Integer size) {

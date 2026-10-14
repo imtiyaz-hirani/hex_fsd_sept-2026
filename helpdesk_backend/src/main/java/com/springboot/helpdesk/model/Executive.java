@@ -27,5 +27,5 @@ public class Executive {
     private User user;
     @ManyToOne
     @JoinColumn(name = "manager_id", nullable = false)
-    private Manager manager;
+    private Manager manager; //e.manager m
 }

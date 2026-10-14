@@ -61,6 +61,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             JOIN t.customer c
             JOIN t.executive e
             JOIN e.user u
+            JOIN e.manager m
             where u.username=?1
             """)
     List<TicketInfoDtoV2> getTicketByExecutiveUsername(String executiveUsername, Pageable pageable);
