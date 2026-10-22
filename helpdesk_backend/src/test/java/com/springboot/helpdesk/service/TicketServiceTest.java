@@ -5,9 +5,9 @@ import com.springboot.helpdesk.dto.response.TicketInfoDto;
 import com.springboot.helpdesk.enums.Priority;
 import com.springboot.helpdesk.enums.Status;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
-import com.springboot.helpdesk.model.Customer;
-import com.springboot.helpdesk.model.Ticket;
+import com.springboot.helpdesk.model.*;
 import com.springboot.helpdesk.repository.CustomerRepository;
+import com.springboot.helpdesk.repository.ExecutiveRepository;
 import com.springboot.helpdesk.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -35,6 +35,8 @@ import static org.junit.jupiter.api.Assertions.*;
     private TicketRepository ticketRepository;
     @Mock
     private CustomerRepository customerRepository;
+    @Mock
+    private ExecutiveRepository executiveRepository;
     @Test
     public void getTicketsByCustomerIdTest(){
         TicketInfoDto dto1 = new TicketInfoDto(1L,"test1", Instant.now(), Priority.LOW, Status.OPEN,"test_name","executive_name","testmail@gmail.com");
@@ -112,5 +114,36 @@ import static org.junit.jupiter.api.Assertions.*;
         // verify if repo calls are happening only once
         verify(customerRepository,times(1)).getByUsername(customerUsername);
         verify(ticketRepository,times(1)).save(any(Ticket.class));
+    }
+
+    @Test
+    public void assignExecutiveTest(){
+        long executiveId = 1L;
+        long ticketId = 1L;
+        String managerUsername = "john";
+
+        Executive executive = new Executive();
+        executive.setId(1L);
+        Manager manager = new Manager();
+        User user = new User();
+        user.setUsername("john");
+        manager.setUser(user);
+        executive.setManager(manager);
+
+        Ticket ticket = new Ticket();
+        ticket.setId(1L);
+
+        when(executiveRepository.findById(executiveId)).thenReturn(Optional.of(executive));
+
+        when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket));
+
+        when(ticketRepository.save(ticket)).thenReturn(any(Ticket.class));
+
+        ticketService.assignExecutive(executiveId,ticketId,managerUsername);
+
+        verify(executiveRepository, times(1)).findById(executiveId);
+        verify(ticketRepository, times(1)).findById(ticketId);
+        verify(ticketRepository, times(1)).save(ticket);
+
     }
 }

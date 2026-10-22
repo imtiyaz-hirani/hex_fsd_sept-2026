@@ -16,6 +16,9 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String planName;
+
     @Enumerated(EnumType.STRING)
     private PlanType planType;
 

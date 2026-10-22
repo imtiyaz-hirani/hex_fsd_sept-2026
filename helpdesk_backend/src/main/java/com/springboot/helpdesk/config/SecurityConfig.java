@@ -19,7 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableTransactionManagement
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -71,6 +73,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/api/admin/add").permitAll()
                         // Manager assigning the ticket to executive
                         .requestMatchers(HttpMethod.PUT,"/api/ticket/assign/{executiveId}/{ticketId}").hasAuthority("MANAGER")
+                        .requestMatchers(HttpMethod.POST,"/api/plan/batch/add").hasAuthority("ADMIN")
                         .anyRequest().permitAll()
                 );
         // Add jwt filter before Spring's Auth Filter
