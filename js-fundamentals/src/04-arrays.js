@@ -64,21 +64,33 @@ const products = [
 // We have Array of objects 
 
 // Iterate over products array
-products.forEach(p=> console.log(p))
+products.forEach(p => console.log(p))
 
 // Clone it 
-const products_clone = [...products] 
+const products_clone = [...products]
 
 // search - filter : fetch me the product having id as ?
 let id = 205
-let prod = products.find(p=> p.id === id)
+let prod = products.find(p => p.id === id)
 console.log('---------------------find op----------------')
-console.log((prod  === undefined) ? `product with id : ${id} does not exist` 
-: `product is ${prod.id} , ${prod.name}`)
+console.log((prod === undefined) ? `product with id : ${id} does not exist`
+  : `product is ${prod.id} , ${prod.name}`)
 
 console.log('---------------------filter op by price----------------')
 // display products having price > 20000 
-let filteredArray = products.filter(p=> p.price > 30000); 
+let filteredArray = products.filter(p => p.price > 30000);
 
-filteredArray.length > 0? filteredArray.forEach(p=> console.log(p)) 
-: console.log('No matching products')
+filteredArray.length > 0 ? filteredArray.forEach(p => console.log(p))
+  : console.log('No matching products')
+
+console.log('---------------------map op----------------')
+const nameArry = products.map(p => p.name)
+nameArry.forEach(e => console.log(e))
+
+products
+  .map((p) => `Product : ${p.name} , with price= ${p.price}`)
+  .forEach(element => console.log(element))
+
+// Compute the sum of all prices of all elements(products) 
+console.log('---------------------reduce op----------------')
+console.log(`Total price: ${products.reduce((sum, p) => sum + p.price, 0)}`)
