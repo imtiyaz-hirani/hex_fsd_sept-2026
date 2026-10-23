@@ -94,3 +94,5 @@ products
 // Compute the sum of all prices of all elements(products) 
 console.log('---------------------reduce op----------------')
 console.log(`Total price: ${products.reduce((sum, p) => sum + p.price, 0)}`)
+
+// Compute the max price of the products in the array. 
