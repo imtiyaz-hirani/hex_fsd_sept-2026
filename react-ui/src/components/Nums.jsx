@@ -26,7 +26,6 @@ function Nums() {
                     <span key={index}>{n} &nbsp; &nbsp;</span> 
                 ))
             }
-
             <div>
                 <button className="btn btn-primary" onClick={()=>sortFn('ASC')}>Sort-ASC</button>&nbsp; &nbsp;
                 <button className="btn btn-secondary" onClick={()=>sortFn('RESET')}>RESET</button>&nbsp; &nbsp;
