@@ -1,5 +1,6 @@
 import AddTicket from "./components/AddTicket"
 import Auth from "./components/Auth"
+import CourseList from "./components/CourseList"
 import Navbar from "./components/Navbar"
 import Nums from "./components/Nums"
 import Todos from "./components/todos"
@@ -20,7 +21,8 @@ const App = () => { //parent component
           <Nums />
         </div>
         <div className="col-md-8">
-          <Todos />
+          {/* <Todos /> */}
+          <CourseList />
         </div>
       </div>
       <div className="row">
