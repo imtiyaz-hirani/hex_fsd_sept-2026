@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -41,4 +42,11 @@ public class CustomerController {
                        @RequestBody CustomerUpdateDto dto){
         customerService.update(id, dto);
     }
+
+    /*
+    public CustomerDto getCustomerByUsername(Principal principal){
+        // 
+    }
+
+     */
 }
