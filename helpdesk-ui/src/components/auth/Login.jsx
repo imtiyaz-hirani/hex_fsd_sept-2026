@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { API_SERVER_URL_DEV } from "../../../config"
 import axios from "axios"
 
@@ -11,6 +11,8 @@ function Login() {
 
     const apiUrl = API_SERVER_URL_DEV + '/api/auth/login'
     const userDetailsUrl = API_SERVER_URL_DEV + '/api/auth/user-details'
+
+    const navigate =  useNavigate()
     const processLogin = async (e) => {
         e.preventDefault()
         // Step 1. Fetch the jwt token
@@ -35,10 +37,10 @@ function Login() {
             // Based on the role of this user load appropriate dashboard
             switch(resp.data.role){
                 case 'CUSTOMER' :
-                    console.log('go to customer dashboard')
+                    navigate(`/customer/${response.data.token}`)
                     break;
                 case 'ADMIN' :
-                    console.log('go to admin dashboard')
+                    navigate(`/admin/${response.data.token}`)
                     break;
                 case 'EXECUTIVE' :
                     console.log('go to executive dashboard')
