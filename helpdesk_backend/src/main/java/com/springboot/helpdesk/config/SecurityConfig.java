@@ -61,6 +61,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/api/customer/add").permitAll()
                         // login API
                         .requestMatchers(HttpMethod.GET,"/api/auth/login").authenticated()
+                        // user details API
+                        .requestMatchers(HttpMethod.GET,"/api/auth/user-details").authenticated()
 
                         .requestMatchers(HttpMethod.GET,"/api/customer/{id}").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.POST,"/api/ticket/add").hasAuthority("CUSTOMER")

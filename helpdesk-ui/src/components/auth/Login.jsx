@@ -6,20 +6,61 @@ import axios from "axios"
 function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [errMsg, SetErrMsg] = useState("")
+    const [errMsg, setErrMsg] = useState("")
+    const [errComment, setErrComment] = useState("")
 
     const apiUrl = API_SERVER_URL_DEV + '/api/auth/login'
-    const processLogin =async (e)=>{
+    const userDetailsUrl = API_SERVER_URL_DEV + '/api/auth/user-details'
+    const processLogin = async (e) => {
         e.preventDefault()
+        // Step 1. Fetch the jwt token
         const token = 'Basic ' + window.btoa(username + ':' + password)
         // console.log(token)
+        try {
+            const response = await axios.get(apiUrl, {
+                headers: { 'Authorization': token }
+            })
 
-        const response = await axios.get(apiUrl, {
-            headers : { 'Authorization': token }
-        } )
-        // console.log(response)
-        // console.log(response.data.token)
-        localStorage.setItem('token', response.data.token)
+            // console.log(response)
+            // console.log(response.data.token)
+            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('username', username)
+
+            // Step 2. Fetch User Details using jwtToken
+            const resp = await axios.get(userDetailsUrl, {
+                headers: { 'Authorization': 'Bearer ' + response.data.token }
+            })
+            // console.log(resp)
+            localStorage.setItem('role', resp.data.role)    
+            // Based on the role of this user load appropriate dashboard
+            switch(resp.data.role){
+                case 'CUSTOMER' :
+                    console.log('go to customer dashboard')
+                    break;
+                case 'ADMIN' :
+                    console.log('go to admin dashboard')
+                    break;
+                case 'EXECUTIVE' :
+                    console.log('go to executive dashboard')
+                    break;
+                case 'MANAGER' :
+                    console.log('go to manager dashboard')
+                    break;
+                default:
+                    setErrMsg('Something went wrong...')
+                    break;
+            }
+        }
+        catch (err) {
+            if (err?.response?.data === undefined) {
+                setErrMsg("Invalid Credentials")
+            }
+            else {
+                console.log(err?.response?.data)
+                setErrMsg(err?.response?.data?.message)
+                setErrComment(err?.response?.data?.comments)
+            }
+        }
     }
     return (
         <div className="container">
@@ -32,28 +73,38 @@ function Login() {
 
                             {/* <!-- Branding / Header --> */}
                             <div className="text-center mb-4">
-                                
+
                                 <h1 className="h4 fw-bold text-dark mb-1">Helpdesk</h1>
                                 <p className="text-muted small">Please enter your details to sign in.</p>
                             </div>
+                            {/* <!-- Error / Header --> */}
+                            <div className="text-center mb-4">
+
+                                <p style={{ color: 'red', fontSize: '1.2rem' }}>
+                                    {errMsg}
+                                </p>
+                                <p className="text-muted small">
+                                    {errComment}
+                                </p>
+                            </div>
 
                             {/* <!-- Login Form --> */}
-                            <form onSubmit={(e)=>processLogin(e)}>
+                            <form onSubmit={(e) => processLogin(e)}>
                                 {/* <!-- Username Field --> */}
                                 <div className="mb-3">
                                     <label className="form-label small fw-semibold text-secondary">Username</label>
-                                    <input type="text" className="form-control form-control-lg"required 
-                                    onChange={(e)=> setUsername(e.target.value)}/>
+                                    <input type="text" className="form-control form-control-lg" required
+                                        onChange={(e) => setUsername(e.target.value)} />
                                 </div>
 
                                 {/* <!-- Password Field --> */}
                                 <div className="mb-3">
                                     <div className="d-flex justify-content-between align-items-center">
-                                        <label   className="form-label small fw-semibold text-secondary">Password</label>
+                                        <label className="form-label small fw-semibold text-secondary">Password</label>
                                         <a href="#" className="small text-decoration-none text-primary fw-semibold">Forgot password?</a>
                                     </div>
-                                    <input type="password" className="form-control form-control-lg" placeholder="••••••••" required 
-                                    onChange={(e)=> setPassword(e.target.value)}/>  
+                                    <input type="password" className="form-control form-control-lg" placeholder="••••••••" required
+                                        onChange={(e) => setPassword(e.target.value)} />
                                 </div>
 
                                 {/* <!-- Submit Button --> */}

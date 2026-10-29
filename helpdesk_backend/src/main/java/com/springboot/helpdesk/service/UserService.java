@@ -1,10 +1,13 @@
 package com.springboot.helpdesk.service;
 
 import com.springboot.helpdesk.dto.request.AdminDto;
+import com.springboot.helpdesk.dto.response.DetailsDto;
 import com.springboot.helpdesk.enums.Role;
+import com.springboot.helpdesk.exception.InactiveUserException;
 import com.springboot.helpdesk.model.User;
 import com.springboot.helpdesk.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +33,12 @@ public class UserService {
 
         // Save user in DB
         userRepository.save(user);
+    }
+
+    public DetailsDto getUserDetails(String loggedInUsername) {
+       DetailsDto detailsDto = userRepository.getUserDetails(loggedInUsername);
+       if(!detailsDto.isActive())
+           throw new InactiveUserException("User is disabled");
+       return detailsDto;
     }
 }
