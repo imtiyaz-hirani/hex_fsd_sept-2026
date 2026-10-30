@@ -8,7 +8,7 @@ export const getTickets = (username)=>async(dispatch)=>{
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
         }
     )
-    console.log(response.data)
+
     dispatch({
         type: 'FETCH_TICKETS_CUSTOMER',
         payload : response.data
@@ -17,7 +17,7 @@ export const getTickets = (username)=>async(dispatch)=>{
 
 export const addTicket = (ticket)=>async(dispatch)=>{
     
-    const response = await axios.post(`${API_SERVER_URL_DEV}/api/ticket/add`, 
+    const response = await axios.post(`${API_SERVER_URL_DEV}/api/ticket/add`, ticket ,
         {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
         })

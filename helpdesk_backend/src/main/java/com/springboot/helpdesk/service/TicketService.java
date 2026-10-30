@@ -34,21 +34,23 @@ public class TicketService {
     private final CustomerRepository customerRepository;
     private final ExecutiveRepository executiveRepository;
 
-    public void add(String customerUsername, TicketDto ticketDto) {
+    public
+    TicketRespDto add(String customerUsername, TicketDto ticketDto) {
         // Step 1: Fetch Customer Object from DB using given customerId
         Customer customer =  customerRepository.getByUsername(customerUsername);
-        log.info("i am at line 38");
+        // log.info("i am at line 38");
         // Step 2: Map TicketDto to Ticket entity
         Ticket ticket = TicketMapper.convertDtoToEntity(ticketDto);
-        log.info("i am at line 41");
+        // log.info("i am at line 41");
         // Step 3: Attach customer to Ticket
         ticket.setCustomer(customer);
-        log.info("i am at line 44");
+        // log.info("i am at line 44");
         // Step 3.5: Assign Status as Open to Ticket
         ticket.setStatus(Status.OPEN);
-        log.info("i am at line 47");
+        // log.info("i am at line 47");
         // Step 4: Insert Ticket in DB
-        ticketRepository.save(ticket);
+        ticket =  ticketRepository.save(ticket);
+        return TicketMapper.convertEntityToDto(ticket);
     }
 
     public void assignExecutive(Long executiveId, Long ticketId, String managerUsername) {

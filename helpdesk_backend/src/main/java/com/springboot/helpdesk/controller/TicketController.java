@@ -21,14 +21,15 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class TicketController {
 
     private final TicketService ticketService;
 
     @PostMapping("/api/ticket/add")
-    public void postTicket(Principal principal,
+    public TicketRespDto postTicket(Principal principal,
                            @Valid @RequestBody TicketDto ticketDto){
-        ticketService.add(principal.getName(), ticketDto);
+       return ticketService.add(principal.getName(), ticketDto);
     }
     // Done by Manager - activate the check after security config
     @PutMapping("/api/ticket/assign/{executiveId}/{ticketId}")

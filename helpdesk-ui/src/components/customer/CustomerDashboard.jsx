@@ -4,6 +4,7 @@ import Stat from "./Stat"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { getTickets } from "../../store/actions/CustomerAction"
+import AddTicket from "./AddTicket"
 
 function CustomerDashboard(){
     const navigate = useNavigate()
@@ -23,6 +24,8 @@ function CustomerDashboard(){
              <button className="btn btn-secondary" onClick={() => logout()}>Logout</button>
              <hr />
              <Stat />
+             <hr />
+             <AddTicket />
              <hr />
              <TicketList />
         </div>
