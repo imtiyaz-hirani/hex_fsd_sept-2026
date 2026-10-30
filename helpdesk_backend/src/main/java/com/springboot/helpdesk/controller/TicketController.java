@@ -102,6 +102,11 @@ public class TicketController {
                                                    ){
         return ticketService.dynamicFilterTicket(priority,status, fromDate, toDate);
     }
+
+    @DeleteMapping("/api/ticket/hard/{id}")
+    public void deleteTicketHard(@PathVariable long id , Principal principal){
+        ticketService.deleteTicketHard(id, principal.getName());
+    }
 }
 /*
     OPEN tickets

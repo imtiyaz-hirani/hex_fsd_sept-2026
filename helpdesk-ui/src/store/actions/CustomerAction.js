@@ -26,3 +26,15 @@ export const addTicket = (ticket)=>async(dispatch)=>{
         payload : response.data
     })    
 }
+
+export const deleteTicket = (id) =>async(dispatch)=>{
+    const response = await axios.delete(`${API_SERVER_URL_DEV}/api/ticket/hard/${id}` ,
+        {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        })
+    dispatch({
+        type: 'DELETE_TICKET',
+        payload : id
+    })        
+
+}

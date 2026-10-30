@@ -7,6 +7,7 @@ import com.springboot.helpdesk.dto.response.TicketRespDto;
 import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
 import com.springboot.helpdesk.enums.Priority;
 import com.springboot.helpdesk.enums.Status;
+import com.springboot.helpdesk.exception.InvalidCallException;
 import com.springboot.helpdesk.exception.OwnershipException;
 import com.springboot.helpdesk.exception.ResourceNotFoundException;
 import com.springboot.helpdesk.mapper.TicketMapper;
@@ -116,6 +117,17 @@ public class TicketService {
                                                     status,
                             fromDate == null ? null: fromDate.atStartOfDay(ZoneOffset.UTC).toInstant(),
                              toDate == null? null:toDate.atStartOfDay(ZoneOffset.UTC).toInstant());
+    }
+
+    public void deleteTicketHard(long id, String username) {
+
+         Ticket ticket  = ticketRepository.findById(id)
+                 .orElseThrow(()-> new ResourceNotFoundException("Ticket if Invalid."));
+
+         if(! (ticket.getCustomer().getUser().getUsername().equals(username)))
+             throw new InvalidCallException("Operation not allowed.");
+
+         ticketRepository.delete(ticket);
     }
 } // yyyy-MM-ddThh:mm:sec.nano
 /*

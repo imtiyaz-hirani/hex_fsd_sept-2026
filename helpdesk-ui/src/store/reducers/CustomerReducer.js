@@ -12,7 +12,13 @@ const CustomerReducer =(state = initialState,action)=>{
             return{
                 ...state, 
                 customerTickets : [...state.customerTickets, action.payload]
-            }   
+            }
+        case 'DELETE_TICKET' :
+            return{
+                ...state, 
+                customerTickets : [...state.customerTickets.filter(t=> t.ticketId !== action.payload)]
+            } 
+              
         default: 
             return state
     }
