@@ -45,7 +45,10 @@ public class CustomerController {
                        @RequestBody CustomerUpdateDto dto){
         customerService.update(id, dto);
     }
-
+    /*
+      MultipartFile file =
+      {name: '145432.jpg', lastModified: 1785732080891, lastModifiedDate: Mon Aug 03 2026 10:11:20 GMT+0530 (India Standard Time), webkitRelativePath: '', size: 555063, …}
+    * */
     @PostMapping("/api/customer/upload")
     public void upload(Principal principal,
                             @RequestParam("file") MultipartFile file) throws IOException {

@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { getTickets } from "../../store/actions/CustomerAction"
 import AddTicket from "./AddTicket"
+import Upload from "./Upload"
 
 function CustomerDashboard(){
     const navigate = useNavigate()
@@ -28,6 +29,8 @@ function CustomerDashboard(){
              <AddTicket />
              <hr />
              <TicketList />
+             <hr />
+             <Upload />
         </div>
     )
 }
