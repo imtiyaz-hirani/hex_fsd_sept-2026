@@ -10,6 +10,11 @@ public record TicketRespDto(
         String subject,
         Instant createdAt,
         Priority priority,
-        Status status
+        Status status,
+        Long customerId,
+        String customerName,
+        Long executiveId,
+        String executiveName
+
 ) {
 }

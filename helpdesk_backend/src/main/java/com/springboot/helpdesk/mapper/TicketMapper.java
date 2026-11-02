@@ -23,7 +23,11 @@ public class TicketMapper {
                         ticket.getSubject(),
                         ticket.getCreatedAt(),
                         ticket.getPriority(),
-                        ticket.getStatus()
+                        ticket.getStatus(),
+                        0L,
+                        "",
+                        0L,
+                        ""
                 );
     }
 }

@@ -1,10 +1,7 @@
 package com.springboot.helpdesk.service;
 
 import com.springboot.helpdesk.dto.request.TicketDto;
-import com.springboot.helpdesk.dto.response.TicketInfoDto;
-import com.springboot.helpdesk.dto.response.TicketInfoDtoV2;
-import com.springboot.helpdesk.dto.response.TicketRespDto;
-import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
+import com.springboot.helpdesk.dto.response.*;
 import com.springboot.helpdesk.enums.Priority;
 import com.springboot.helpdesk.enums.Status;
 import com.springboot.helpdesk.exception.InvalidCallException;
@@ -19,6 +16,7 @@ import com.springboot.helpdesk.repository.ExecutiveRepository;
 import com.springboot.helpdesk.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -108,15 +106,23 @@ public class TicketService {
 
 
 
-    public List<TicketRespDto> dynamicFilterTicket(Priority priority,
-                                                   Status status,
-                                                   LocalDate fromDate,
-                                                   LocalDate toDate) {
-
-        return ticketRepository.dynamicFilterTicket(priority,
+    public FilterDto dynamicFilterTicket(Priority priority,
+                                         Status status,
+                                         LocalDate fromDate,
+                                         LocalDate toDate,
+                                         int page,
+                                         int size) {
+        Pageable pageable =  PageRequest.of(page,size);
+        Page<TicketRespDto> pageDto = ticketRepository.dynamicFilterTicket(priority,
                                                     status,
                             fromDate == null ? null: fromDate.atStartOfDay(ZoneOffset.UTC).toInstant(),
-                             toDate == null? null:toDate.atStartOfDay(ZoneOffset.UTC).toInstant());
+                             toDate == null? null:toDate.atStartOfDay(ZoneOffset.UTC).toInstant(),
+                             pageable);
+
+         return new FilterDto(
+                 pageDto.getContent() ,
+                 new PaginationDto(pageDto.getTotalPages(),pageDto.getTotalElements() ,
+                         pageDto.stream().toList().size()));
     }
 
     public void deleteTicketHard(long id, String username) {
