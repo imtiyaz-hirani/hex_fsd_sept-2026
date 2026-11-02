@@ -15,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
@@ -100,6 +101,35 @@ public class GlobalExceptionHandler {
                 .body(
                         new ErrorDto(e.getMessage(),
                                 "Contact ADMIN admin@helpdesk.com",
+                                Instant.now())
+                );
+    }
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ErrorDto> handleNullPointerException(
+            NullPointerException e
+    ){
+        //always reply the object not the string
+
+        return ResponseEntity
+                .status(HttpStatus.PRECONDITION_FAILED)
+                .body(
+                        new ErrorDto(e.getMessage(),
+                                "File is mandatory",
+                                Instant.now())
+                );
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<ErrorDto> handleIOException(
+            IOException e
+    ){
+        //always reply the object not the string
+
+        return ResponseEntity
+                .status(HttpStatus.PRECONDITION_FAILED)
+                .body(
+                        new ErrorDto(e.getMessage(),
+                                "File is mandatory",
                                 Instant.now())
                 );
     }

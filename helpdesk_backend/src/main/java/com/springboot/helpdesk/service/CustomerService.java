@@ -10,10 +10,19 @@ import com.springboot.helpdesk.model.Customer;
 import com.springboot.helpdesk.model.User;
 import com.springboot.helpdesk.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -23,6 +32,8 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    Logger logger = LoggerFactory.getLogger(CustomerService.class);
+    private final static String uploadDir = "D:/hex_fsd_sept_2026/helpdesk-ui/public/uploads/";
 
     public void insertCustomer(CustomerDto dto) {
         // Step 1: Prepare user obj and save it in DB
@@ -80,5 +91,27 @@ public class CustomerService {
 
         customerRepository.save(customer);
 
+    }
+
+    public void upload(String customerUsername, MultipartFile file) throws IOException {
+        // fetch customer from username
+        Customer customer  = customerRepository.getByUsername(customerUsername);
+        if(file == null || file.isEmpty())
+            throw new NullPointerException("Please upload valid file");
+
+        logger.info("uploaded file name {}", file.getOriginalFilename());
+        logger.info("File size {}",file.getSize());
+        String ext = Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1];
+        logger.info("File extension {}",  ext);
+
+        // Original file name
+        String originalFileName = System.currentTimeMillis() + "_" + file.getOriginalFilename() ;
+
+        Files.copy(file.getInputStream() , Paths.get(uploadDir + originalFileName), StandardCopyOption.REPLACE_EXISTING);
+
+        // Save filename in the DB
+        customer.setIdUrl(originalFileName);
+
+        customerRepository.save(customer);
     }
 }

@@ -22,6 +22,8 @@ public class Customer { //c
     private String name;
     private String city;
     private String email;
+    private String idUrl;
+
     @OneToOne
     private User user; //c.user u
 

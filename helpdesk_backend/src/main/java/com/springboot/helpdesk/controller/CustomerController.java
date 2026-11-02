@@ -7,7 +7,10 @@ import com.springboot.helpdesk.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -43,6 +46,12 @@ public class CustomerController {
         customerService.update(id, dto);
     }
 
+    @PostMapping("/api/customer/upload")
+    public void upload(Principal principal,
+                            @RequestParam("file") MultipartFile file) throws IOException {
+        String customerUsername = principal.getName();
+        customerService.upload(customerUsername,file);
+    }
     /*
     public CustomerDto getCustomerByUsername(Principal principal){
         //
