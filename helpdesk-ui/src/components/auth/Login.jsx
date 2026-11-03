@@ -43,7 +43,7 @@ function Login() {
                     navigate(`/admin/${response.data.token}`)
                     break;
                 case 'EXECUTIVE' :
-                    console.log('go to executive dashboard')
+                     navigate(`/executive`)
                     break;
                 case 'MANAGER' :
                     console.log('go to manager dashboard')

@@ -158,7 +158,13 @@ function AdminDashboard() {
                                 <td>{t.status}</td>
                                 <td>{t.customerName}</td>
                                 <td>{t.executiveName === null ? "Not assigned yet" : t.executiveName}</td>
-                                <td> <button onClick={() => onDelete(t.ticketId)}>delete</button></td>
+                                
+                                <td> 
+                                    <button onClick={() => onView(t.ticketId)}>view</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button onClick={() => onDelete(t.ticketId)}>delete</button>
+            
+                                    </td>
                             </tr>
 
                         ))
