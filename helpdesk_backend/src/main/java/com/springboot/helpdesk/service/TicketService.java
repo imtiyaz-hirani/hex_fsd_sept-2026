@@ -91,8 +91,10 @@ public class TicketService {
         return ticketRepository.getTicketByExecutiveUsername(executiveUsername, pageable);
     }
 
-    public List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers() {
-        return ticketRepository.getTicketStatusStatWithNumCustomers();
+    public ChartDto getTicketStatusStatWithNumCustomers() {
+
+        List<TicketStatusStatDto> list =  ticketRepository.getTicketStatusStatWithNumCustomers();
+        return TicketMapper.convertTicketToChartDto(list);
     }
 
     public List<TicketRespDto> getTicketsByPriority(Priority priority) {

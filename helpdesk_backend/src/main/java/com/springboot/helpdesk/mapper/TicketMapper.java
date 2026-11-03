@@ -1,9 +1,14 @@
 package com.springboot.helpdesk.mapper;
 
 import com.springboot.helpdesk.dto.request.TicketDto;
+import com.springboot.helpdesk.dto.response.ChartDto;
 import com.springboot.helpdesk.dto.response.TicketRespDto;
+import com.springboot.helpdesk.dto.response.TicketStatusStatDto;
 import com.springboot.helpdesk.model.Ticket;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class TicketMapper {
@@ -29,5 +34,20 @@ public class TicketMapper {
                         0L,
                         ""
                 );
+    }
+
+    public static ChartDto convertTicketToChartDto(List<TicketStatusStatDto> list){
+        List<String> labels = new ArrayList<>();
+        List<Long> values = new ArrayList<>();
+
+        list.forEach(e->{
+            labels.add(e.status().toString());
+            values.add(e.numberOfCustomers());
+        });
+
+        return new ChartDto(
+                labels,
+                values
+        );
     }
 }

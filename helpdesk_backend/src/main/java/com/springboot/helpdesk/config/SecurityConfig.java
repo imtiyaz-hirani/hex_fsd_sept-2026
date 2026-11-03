@@ -60,11 +60,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/customer/add").permitAll()
-                        // login API
+                        // Login API
                         .requestMatchers(HttpMethod.GET,"/api/auth/login").authenticated()
-                        // user details API
+                        // User details API
                         .requestMatchers(HttpMethod.GET,"/api/auth/user-details").authenticated()
-
+                        // Customer API
                         .requestMatchers(HttpMethod.GET,"/api/customer/{id}").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.POST,"/api/ticket/add").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET,"/api/ticket/v2").hasAnyAuthority("CUSTOMER","EXECUTIVE")
@@ -76,6 +76,8 @@ public class SecurityConfig {
                         // Admin can onboard manager
                         .requestMatchers(HttpMethod.POST,"/api/manager/add").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/api/ticket/filter").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/ticket/status/customers/stat").hasAuthority("ADMIN")
+
                         // Admin onboard API (permitAll to add) (After addition - denyAll)
                         .requestMatchers(HttpMethod.POST,"/api/admin/add").permitAll()
                         // Manager assigning the ticket to executive

@@ -82,7 +82,7 @@ public class TicketController {
      CLOSED             123
     * */
     @GetMapping("/api/ticket/status/customers/stat")
-    public List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers(){
+    public ChartDto getTicketStatusStatWithNumCustomers(){
         return ticketService.getTicketStatusStatWithNumCustomers();
     }
 

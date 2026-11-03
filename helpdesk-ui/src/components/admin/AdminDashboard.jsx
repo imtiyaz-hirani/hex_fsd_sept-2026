@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { API_SERVER_URL_DEV } from "../../../config";
+import DonutChart from "./DonutChart";
 
 function AdminDashboard() {
 
@@ -15,6 +16,10 @@ function AdminDashboard() {
     const [page, setPage] = useState(0)
     const [size, setSize] = useState(5)
     const [currentPageSize, setCurrentPageSize] = useState(0)
+
+    const [labels,setLabels] = useState([])
+    const [values,setValues] = useState([])
+
     useEffect(() => {
         console.log('in use effect....')
         const urlToken = params.token
@@ -54,7 +59,20 @@ function AdminDashboard() {
             setTotalRecords(response.data.paginationInfo.totalRecords)
             setCurrentPageSize(response.data.paginationInfo.numRecordsInPage)
         }
+
+        const getDonutData = async ()=>{
+            const response = await axios.get(API_SERVER_URL_DEV + '/api/ticket/status/customers/stat',
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                }
+            )
+            setLabels(response.data.labels)
+            setValues(response.data.values)
+        }
         getUserDetails()
+        getDonutData()
         getTickets()
     }, [params, page, size])
     const logout = () => {
@@ -71,8 +89,32 @@ function AdminDashboard() {
             <h1>AdminDashboard</h1>
             <button className="btn btn-secondary" onClick={() => logout()}>Logout</button>
 
-            <hr />
-            <table className="table">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                Tickets for each status
+                            </div>
+                            <div className="card-body">
+                                <DonutChart labels = {labels} values = {values}/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                            <div className="card">
+                            <div className="card-header">
+                                Tickets for each priority
+                            </div>
+                            <div className="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-lg-12">
+                             <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -116,7 +158,7 @@ function AdminDashboard() {
                                 <td>{t.status}</td>
                                 <td>{t.customerName}</td>
                                 <td>{t.executiveName === null ? "Not assigned yet" : t.executiveName}</td>
-                                <button onClick={() => onDelete(t.ticketId)}>delete</button>
+                                <td> <button onClick={() => onDelete(t.ticketId)}>delete</button></td>
                             </tr>
 
                         ))
@@ -124,17 +166,17 @@ function AdminDashboard() {
                 </tbody>
             </table>
             <nav aria-label="Page navigation example" style={{ "alignContent": 'center' }}>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><button class="page-link" onClick={()=>setPage(page-1)} 
+                <ul className="pagination justify-content-center">
+                    <li className="page-item"><button className="page-link" onClick={()=>setPage(page-1)} 
                         disabled={page === 0}>Previous</button></li>
 
                     {
                     Array.from({ length: totalPages }, (e, index) => (
                         <li key={index} className="page-item">
-                        <button class="page-link" onClick={()=>onPageChange(index)}>{index+1}</button></li>
+                        <button className="page-link" onClick={()=>onPageChange(index)}>{index+1}</button></li>
                     ))}
 
-                    <li class="page-item"><button class="page-link" onClick={()=>setPage(page+1)}
+                    <li className="page-item"><button className="page-link" onClick={()=>setPage(page+1)}
                          disabled={page === (totalPages-1)} >Next</button></li>
                     
                 </ul>
@@ -142,6 +184,11 @@ function AdminDashboard() {
                     <p>{`Showing ${currentPageSize} records from total ${totalRecords} records`}</p>
             </nav>
             
+                    </div>
+                </div>
+            </div>
+            
+           
         </div>
     )
 }

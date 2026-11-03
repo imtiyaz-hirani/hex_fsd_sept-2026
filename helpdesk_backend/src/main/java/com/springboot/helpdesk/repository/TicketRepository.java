@@ -69,7 +69,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Query("""
             select t.status as status,count(c.id) as numberOfCustomers
-            from Ticket t JOIN t.customer c
+            from Ticket t LEFT JOIN t.customer c
             group by t.status
             """)
     List<TicketStatusStatDto> getTicketStatusStatWithNumCustomers();
